@@ -8,8 +8,8 @@ class ContactController extends Controller
 {
     
 
-    public function contato() {
-        echo 'Contate-nos';
+    public function contact() {
+        return view('site.contact');
     }
 
 

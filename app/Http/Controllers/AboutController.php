@@ -8,9 +8,10 @@ class AboutController extends Controller
 {
     
 
-    public function sobreNos() {
-        echo 'Sobre Nós';
+    public function about() {
+        return view('site.about');
     }
+    
 
 
 }

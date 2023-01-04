@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProviderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,18 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-Route::get('/', [MainController::class, 'main']);
-Route::get('/sobre-nos', [AboutController::class, 'sobreNos']);
-Route::get('/contato', [ContactController::class, 'contato']);
+Route::get('/', [MainController::class, 'main'])->name('site.index');
+Route::get('/sobre-nos', [AboutController::class, 'about'])->name('site.about');
+Route::get('/contato', [ContactController::class, 'contact'])->name('site.contact');
+Route::get('/login', [ContactController::class, 'signIn'])->name('site.login');
 
+Route::prefix('/app')->group(function(){
+    Route::get('/clientes', function(){return 'showClients';})->name('app.clients');
+    Route::get('/fornecedores', [ProviderController::class, 'index'])->name('app.providers');
+    Route::get('/produtos', function(){ return 'showProducts';})->name('app.products');
+});
+
+//contingency route or alternative router in case the user accesses a non-existing route:
+Route::fallback( function() {
+    echo ("Rota acessada não existe.<a href='/'> Clique aqui</a> para voltar à página inicial");
+});

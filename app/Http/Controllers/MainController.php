@@ -9,7 +9,7 @@ class MainController extends Controller
 
 
     public function main() {
-        echo 'Bem vindo!';
+        return view('site.main');
     }
 
 
