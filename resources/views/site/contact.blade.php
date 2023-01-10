@@ -15,9 +15,9 @@
     <div class="informacao-pagina">
         <div class="contato-principal">
             
-            @component('components.form')
+            @component('components.form', ['reason_contact' => $reason_contact])
             @endcomponent
-
+ 
         </div>
     </div>  
 </div>

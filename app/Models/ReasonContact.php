@@ -5,14 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Provider extends Model
+class ReasonContact extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'site',
-        'UF',
-        'email'
-    ];
+    protected $fillable = ['reason_contact'];
 }
