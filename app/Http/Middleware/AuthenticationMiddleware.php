@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\LogAccess;
 
-class LogAcessMiddleware
+class AuthenticationMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,13 +14,15 @@ class LogAcessMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
-    {   
+    public function handle($request, Closure $next)
+    {
+        session_start();
 
-        $ip = $request->server()->get('REMOTE_ADDR');
-        $rota = $request->getRequestUri();
-        LogAcces::create(['log' => "IP $ip requisitou a rota $rota"]);
-        $resposta = setStatusCode(201, "Status modificado!");
-        return $resposta;
+        if(isset($_SESSION['email']) && $_SESSION['email'] != ''){
+            return $next($request);
+        }
+        else {
+            return redirect()->route('site.login', ['erro' => 2]);
+        }
     }
 }

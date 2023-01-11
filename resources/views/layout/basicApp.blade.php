@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-br">
     <head>
         <title>Gestão Fácil - @yield('title')</title>
@@ -9,6 +9,7 @@
 
     <body>
         {{-- Call content of about.blade.php, contact.blade.php and main.blade.php: --}}
+        @include('partials.topApp')
         @yield('content')
     </body>
-</html>
+</html> 

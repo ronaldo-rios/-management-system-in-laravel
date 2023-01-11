@@ -17,13 +17,17 @@
         <div style="width:30%; margin-left:auto; margin-right:auto">
         <form action="{{route('site.login')}}" method="POST">
             @csrf
-            <input name="user" type="text" placeholder="Usuário" class="borda-preta">
+            <input name="user" type="email" placeholder="Seu E-mail" class="borda-preta">
+            {{ $errors->has('user') ? $errors->first('user') : '' }}
             <input name="password" type="password" placeholder="Sua Senha" class="borda-preta">
+            {{ $errors->has('password') ? $errors->first('password') : '' }}
             <button type="submit">Entrar</button>
         </form>
+        {{ isset($erro) && $erro != '' ? $erro : '' }}
         </div>
     </div>  
 </div>
+
 
 <div class="rodape">
     <div class="redes-sociais">
