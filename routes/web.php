@@ -5,6 +5,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +21,8 @@ Route::get('/', [MainController::class, 'main'])->name('site.index');
 Route::get('/sobre-nos', [AboutController::class, 'about'])->name('site.about');
 Route::get('/contato', [ContactController::class, 'contact'])->name('site.contact');
 Route::post('/contato', [ContactController::class, 'saveContact'])->name('site.contact');
-Route::get('/login', [ContactController::class, 'signIn'])->name('site.login');
+Route::get('/login', [LoginController::class, 'index'])->name('site.login');
+Route::post('/login', [LoginController::class, 'signIn'])->name('site.login');
 
 Route::prefix('/app')->group(function(){
     Route::get('/clientes', function(){return 'showClients';})->name('app.clients');
