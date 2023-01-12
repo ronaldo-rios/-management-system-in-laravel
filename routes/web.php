@@ -32,7 +32,10 @@ Route::middleware('authentication')->prefix('/app')->group(function(){
     Route::get('/logout', [LoginController::class, 'logOut'])->name('app.logout');
     Route::get('/cliente', [ClientController::class, 'indexClient'])->name('app.clients');
     Route::get('/fornecedor', [ProviderController::class, 'index'])->name('app.providers');
+    Route::get('/fornecedor/editar/{id}/{msg?}', [ProviderController::class, 'updateProvider'])->name('app.providers.update');
+    Route::get('/fornecedor/deletar', [ProviderController::class, 'destroyProvider'])->name('app.providers.destroy');
     Route::post('/fornecedor/listar', [ProviderController::class, 'listProvider'])->name('app.providers.list');
+    Route::get('/fornecedor/listar', [ProviderController::class, 'listProvider'])->name('app.providers.list');
     Route::get('/fornecedor/add', [ProviderController::class, 'addProvider'])->name('app.providers.add');
     Route::post('/fornecedor/add', [ProviderController::class, 'addProvider'])->name('app.providers.add.post');
     Route::get('/produto', [ProductController::class, 'indexProduct'])->name('app.products');

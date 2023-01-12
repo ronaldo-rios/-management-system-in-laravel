@@ -212,6 +212,20 @@
                 margin: 0px 15px 0px 15px;
             }
 
+            .pagination {
+                display:flex;
+                justify-content: center;
+                margin:15px;
+            }
+            
+            .pagination a {
+                color:#ffffff;
+                background-color: #028367;
+                padding:8px;
+                border-radius: 3px;
+            }
+        
+
             
 
     

@@ -37,12 +37,16 @@
                             <td>{{ $provider->site }}</td>
                             <td>{{ $provider->UF }}</td>
                             <td>{{ $provider->email }}</td>
-                            <td>Excluir</td>
-                            <td>Editar</td>
+                            <td><a href="{{route('app.providers.destroy')}}">Excluir</a></td>
+                            <td><a href="{{route('app.providers.update', $provider->id)}}">Editar</a></td>
                         </tr>
                 @endforeach
                     </tbody>
                 </table>
+                {{-- Call provider in listProvider Methods: --}}
+                <div class="pagination">
+                    {{$providers->appends($request)->links()}}
+                <div>
             </div>
         </div>
     </div>
