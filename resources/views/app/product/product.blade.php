@@ -1,19 +1,19 @@
 @extends('layout.basicApp')
 
-@section('title', 'Fornecedor')
+@section('title', 'Produto')
 
 @section('content')
    
 
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Listar Fornecedor</p>
+            <p>Produtos</p>
         </div>
         <div class="menu">
             <ul>
                 <li>
-                    <a href="{{route('app.providers.add')}}">Novo</a>
-                    <a href="{{route('app.providers')}}">Consulta</a>
+                    <a href="">Novo</a>
+                    <a href="">Consulta</a>
                 </li>
             </ul>
         </div>
@@ -26,22 +26,22 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Site</th>
-                            <th>UF</th>
-                            <th>E-mail</th>
+                            <th>Descrição</th>
+                            <th>Peso</th>
+                            <th>Unidade Id</th>
                             {{-- <th>Editar</th>
                             <th>Excluir</th> --}}
                         </tr>
                     </thead>
                     <tbody>
-                @foreach($providers as $provider)
+                @foreach($products as $product)
                         <tr>
-                            <td>{{ $provider->name }}</td>
-                            <td>{{ $provider->site }}</td>
-                            <td>{{ $provider->UF }}</td>
-                            <td>{{ $provider->email }}</td>
-                            <td><a href="{{route('app.providers.destroy', $provider->id)}}">Excluir</a></td>
-                            <td><a href="{{route('app.providers.update', $provider->id)}}">Editar</a></td>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->description }}</td>
+                            <td>{{ $product->weight }}</td>
+                            <td>{{ $product->unit_id }}</td>
+                            <td><a href="">Excluir</a></td>
+                            <td><a href="">Editar</a></td>
                         </tr>
                 @endforeach
                     </tbody>
@@ -49,7 +49,7 @@
                 {{-- Call provider in listProvider Methods: --}}
                 <div class="pagination">
                     
-                    {{$providers->appends($request)->links()}}<br>
+                    {{$products->appends($request)->links()}}<br>
                     
                 <div>
             </div>

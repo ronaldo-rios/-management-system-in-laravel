@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ClientController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,12 +34,13 @@ Route::middleware('authentication')->prefix('/app')->group(function(){
     Route::get('/cliente', [ClientController::class, 'indexClient'])->name('app.clients');
     Route::get('/fornecedor', [ProviderController::class, 'index'])->name('app.providers');
     Route::get('/fornecedor/editar/{id}/{msg?}', [ProviderController::class, 'updateProvider'])->name('app.providers.update');
-    Route::get('/fornecedor/deletar', [ProviderController::class, 'destroyProvider'])->name('app.providers.destroy');
+    Route::get('/fornecedor/deletar/{id}', [ProviderController::class, 'destroyProvider'])->name('app.providers.destroy');
     Route::post('/fornecedor/listar', [ProviderController::class, 'listProvider'])->name('app.providers.list');
-    Route::get('/fornecedor/listar', [ProviderController::class, 'listProvider'])->name('app.providers.list');
+    Route::get('/fornecedor/listar/{msg?}', [ProviderController::class, 'listProvider'])->name('app.providers.list');
     Route::get('/fornecedor/add', [ProviderController::class, 'addProvider'])->name('app.providers.add');
     Route::post('/fornecedor/add', [ProviderController::class, 'addProvider'])->name('app.providers.add.post');
-    Route::get('/produto', [ProductController::class, 'indexProduct'])->name('app.products');
+    Route::resource('product', ProductController::class);
+
 });
 
 //contingency route or alternative router in case the user accesses a non-existing route:

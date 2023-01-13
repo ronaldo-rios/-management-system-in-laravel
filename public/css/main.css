@@ -215,7 +215,7 @@
             .pagination {
                 display:flex;
                 justify-content: center;
-                margin:15px;
+                margin:20px;
             }
             
             .pagination a {

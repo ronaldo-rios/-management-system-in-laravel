@@ -23,7 +23,7 @@ class ProviderController extends Controller
             ->where('site', 'like', '%'.$request->input('site').'%')
             ->where('UF', 'like', '%'.$request->input('UF').'%')
             ->where('email', 'like', '%'.$request->input('email').'%')
-            ->simplePaginate(3);
+            ->simplePaginate(10);
 
         return view('app.provider.list', ['providers' => $providers, 'request' => $request->all()]);
     }
@@ -91,7 +91,9 @@ class ProviderController extends Controller
     }
 
 
-    public function destroyProvider() {
-
+    public function destroyProvider($id, $msg = '') {
+        
+        Provider::find($id)->delete();  
+        return redirect()->route('app.providers.list');
     }
 }
