@@ -20,7 +20,7 @@
         
         <div class="informacao-pagina">
             
-            <div style="width:80%; margin-left:auto; margin-right:auto">
+            <div style="width:90%; margin-left:auto; margin-right:auto">
                 
                 <table border="1" width="100%">
                     <thead>
@@ -40,8 +40,38 @@
                             <td>{{ $provider->site }}</td>
                             <td>{{ $provider->UF }}</td>
                             <td>{{ $provider->email }}</td>
-                            <td><a href="{{route('app.providers.destroy', $provider->id)}}">Excluir</a></td>
-                            <td><a href="{{route('app.providers.update', $provider->id)}}">Editar</a></td>
+                            <td style="background-color: rgb(214, 3, 56); border:1px solid black; border-radius:5px">
+                                <a style="text-decoration:none; color: #fff" href="{{route('app.providers.destroy', $provider->id)}}">
+                                    Excluir
+                                </a>
+                            </td>
+                            <td style="background-color: rgb(253, 145, 4); border:1px solid black; border-radius:5px">
+                                <a style="text-decoration:none; color: #fff" href="{{route('app.providers.update', $provider->id)}}">
+                                    Editar
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <p>Lista de Produtos</p>
+                                <table border="1" style="margin:20px">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- Loop call products in products method in model Provider: --}}
+                                        @foreach($provider->products as $key => $product)
+                                        <tr>
+                                            <td>{{ $product->id }}</td>
+                                            <td>{{ $product->name }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </td>
                         </tr>
                 @endforeach
                     </tbody>

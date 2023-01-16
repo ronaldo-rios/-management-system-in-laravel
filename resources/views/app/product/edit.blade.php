@@ -21,6 +21,18 @@
             <div style="width:40%; margin-left:auto; margin-right:auto">
                 <form method="POST" action="{{route('product.update', ['product' => $product->id])}}">
 
+                    <select name="provider_id">
+                        <option>Selecione um Fornecedor</option>
+
+                        @foreach($providers as $prov)
+                        <option value="{{$prov->id}}" {{ ($product->provider_id ?? old('provider_id')) == $prov->id ? 'selected' : ''}}>
+                            {{$prov->name}}
+                        </option>
+                        @endforeach
+
+                    </select>
+                    {{$errors->has('provider_id') ? $errors->first('provider_id') : ''}}
+
                     <input type="hidden" name="id" value="{{$product->id ?? ''}}">
                     @csrf
                     @method('PUT')

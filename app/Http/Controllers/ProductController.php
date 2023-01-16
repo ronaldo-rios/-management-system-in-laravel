@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\UnitOfMeasurement;
+use App\Models\ProductDetail;
+use App\Models\Provider;
 
 class ProductController extends Controller
 {
@@ -16,9 +18,9 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         //Find product by name, site, uf and e-mail:
-        $prod = Product::paginate(10);
-
+        $prod = Product::paginate(10);     
         return view('app.product.product', ['products' => $prod, 'request' => $request->all()]);
+        
     }
     
 
@@ -31,7 +33,8 @@ class ProductController extends Controller
     {
         // Call unit of measurements of database:
         $unities = UnitOfMeasurement::all();
-        return view('app.product.add', ['un' => $unities]);
+        $providers = Provider::all();
+        return view('app.product.add', ['un' => $unities, 'providers' => $providers]);
     }
 
     /**
@@ -46,13 +49,15 @@ class ProductController extends Controller
             'name'=> 'required',
             'description' => 'required | max:200',
             'weight' => 'required | integer',
-            'unit_id' => 'exists:unit_of_measurements,id' 
+            'unit_id' => 'exists:unit_of_measurements,id',
+            'provider_id' => 'exists:providers,id'  
         ];
         $feedback = [
             'required'=> 'O campo deve ser preenchido',
             'description.max' => 'O campo possui mais caracteres do que o permitido',
             'weight.integer' => 'Campo deve ser número inteiro',
-            'unit_id.exists' => 'A unidade de medida informada não existe'
+            'unit_id.exists' => 'A unidade de medida informada não existe',
+            'provider_id.exists' => 'Fornecedor informado não existe!'
         ];
 
         $request->validate($rules, $feedback);
@@ -83,7 +88,12 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $unities = UnitOfMeasurement::all();
-        return view('app.product.edit', ['product' => $product, 'un' => $unities]);
+        $providers = Provider::all();
+        return view('app.product.edit', [
+            'product' => $product, 
+            'un' => $unities, 
+            'providers' => $providers
+        ]);
     }
 
     /**
@@ -95,6 +105,24 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $rules = [
+            'name'=> 'required',
+            'description' => 'required | max:200',
+            'weight' => 'required | integer',
+            'unit_id' => 'exists:unit_of_measurements,id',
+            'provider_id' => 'exists:providers,id' 
+        ];
+        $feedback = [
+            'required'=> 'O campo deve ser preenchido',
+            'description.max' => 'O campo possui mais caracteres do que o permitido',
+            'weight.integer' => 'Campo deve ser número inteiro',
+            'unit_id.exists' => 'A unidade de medida informada não existe',
+            'provider_id.exists' => 'Fornecedor informado não existe!'
+        ];
+
+        $request->validate($rules, $feedback);
+
         $product = Product::findOrFail($id);
         $product->update($request->all());
     

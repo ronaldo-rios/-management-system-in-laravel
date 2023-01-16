@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProductDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::middleware('authentication')->prefix('/app')->group(function(){
     Route::get('/fornecedor/add', [ProviderController::class, 'addProvider'])->name('app.providers.add');
     Route::post('/fornecedor/add', [ProviderController::class, 'addProvider'])->name('app.providers.add.post');
     Route::resource('product', ProductController::class);
+    Route::resource('produto-detalhe', ProductDetailController::class);
 
 });
 

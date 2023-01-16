@@ -20,17 +20,19 @@
         
         <div class="informacao-pagina">
             
-            <div style="width:80%; margin-left:auto; margin-right:auto">
+            <div style="width:95%; margin-left:auto; margin-right:auto">
                 
                 <table border="1" width="100%">
                     <thead>
                         <tr>
                             <th>Nome</th>
                             <th>Descrição</th>
+                            <th>Fornecedor</th>
                             <th>Peso</th>
                             <th>Unidade Id</th>
-                            {{-- <th>Editar</th>
-                            <th>Excluir</th> --}}
+                            <th>Comprimento</th>
+                            <th>Altura</th>
+                            <th>Largura</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,8 +40,12 @@
                         <tr>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->description }}</td>
+                            <td>{{ $product->provider->name }}</td>
                             <td>{{ $product->weight }}</td>
                             <td>{{ $product->unit_id }}</td>
+                            <td>{{ $product->productDetail->length ?? '' }}</td>
+                            <td>{{ $product->productDetail->heigth ?? '' }}</td>
+                            <td>{{ $product->productDetail->width ?? '' }}</td>
                             <td style="background-color: rgb(4, 135, 223); border:1px solid black; border-radius:5px">
                                 <a style="text-decoration:none; color: #fff" href="{{route('product.show', ['product' => $product->id])}}">
                                 Detalhes

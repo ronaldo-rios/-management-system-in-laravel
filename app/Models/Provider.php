@@ -15,4 +15,11 @@ class Provider extends Model
         'UF',
         'email'
     ];
+
+    /*If provider HAS MANY products. The Provider model receives hasMany 
+    to perform the relationship with the Product model: */
+    public function products(){
+        // $this make reference Provider Model:
+        return $this->hasMany('App\Models\Product');
+    }
 }
