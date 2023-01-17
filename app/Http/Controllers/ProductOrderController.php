@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Client;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\ProductOrder;
 
-class ClientController extends Controller
+class ProductOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-
-        $clients = Client::simplePaginate(10);
-        return view('app.client.client', ['clients' => $clients, 'request' => $request->all()]);
+        //
     }
 
     /**
@@ -24,9 +24,16 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Order $order)
     {
-        return view('app.client.create');
+        $products = Product::all();
+        // products is method of relationship maked in Order Model using eager loading:
+        $order->products; 
+        return view('app.productorder.create', [
+            'order' => $order,
+            'products' => $products
+        ]);
+
     }
 
     /**
@@ -35,26 +42,24 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Order $order)
     {
         $rules = [
-            'name' => 'required | min:3',
+            'product_id' => 'exists:products,id'
         ];
-
-
         $feedback = [
-            'name.required' => 'O campo deve ser preenchido',
-            'name.min' => 'Nome deve ter pelo menos 3 letras'
+            'product_id.exists' => 'Produto informado não existe!'
         ];
 
         $request->validate($rules, $feedback);
 
+        $product_order = new ProductOrder();
+        $product_order->order_id = $order->id;
+        $product_order->product_id = $request->get('product_id');
+        $product_order->save();
 
-        $client = new Client();
-        $client->name = $request->get('name');
-        $client->save();
+        return redirect()->route('pedido-produto.create', ['order' => $order->id]);
 
-        return redirect()->route('cliente.index');
     }
 
     /**

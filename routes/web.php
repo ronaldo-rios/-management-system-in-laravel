@@ -10,6 +10,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductDetailController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +34,6 @@ Route::post('/login', [LoginController::class, 'signIn'])->name('site.login');
 Route::middleware('authentication')->prefix('/app')->group(function(){
     Route::get('/home', [HomeController::class, 'homeIndex'])->name('app.home');
     Route::get('/logout', [LoginController::class, 'logOut'])->name('app.logout');
-    Route::get('/cliente', [ClientController::class, 'indexClient'])->name('app.clients');
     Route::get('/fornecedor', [ProviderController::class, 'index'])->name('app.providers');
     Route::get('/fornecedor/editar/{id}/{msg?}', [ProviderController::class, 'updateProvider'])->name('app.providers.update');
     Route::get('/fornecedor/deletar/{id}', [ProviderController::class, 'destroyProvider'])->name('app.providers.destroy');
@@ -42,6 +43,10 @@ Route::middleware('authentication')->prefix('/app')->group(function(){
     Route::post('/fornecedor/add', [ProviderController::class, 'addProvider'])->name('app.providers.add.post');
     Route::resource('product', ProductController::class);
     Route::resource('produto-detalhe', ProductDetailController::class);
+    Route::resource('cliente', ClientController::class);
+    Route::resource('pedido', OrderController::class);
+    Route::get('pedido-produto/create/{order}', [ProductOrderController::class, 'create'])->name('pedido-produto.create');
+    Route::post('pedido-produto/store/{order}', [ProductOrderController::class, 'store'])->name('pedido-produto.store');
 
 });
 

@@ -67,6 +67,17 @@
                                 </a>
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="12">
+                                <p>ID de Pedidos</p>
+                                @foreach($product->orders as $order)
+                                <a href="{{route('pedido-produto.create', ['order' => $order->id])}}" 
+                                    style="text-decoration:none; color:rgb(14, 173, 152); font-weight:bold">
+                                    Pedido:  {{$order->id}}
+                                </a>
+                                @endforeach
+                            </td>
+                        </tr>
                 @endforeach
                     </tbody>
                 </table>

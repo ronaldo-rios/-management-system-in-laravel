@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Order;
 use App\Models\Client;
 
-class ClientController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,12 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
+        $order = Order::simplePaginate(10);
+        return view('app.order.order', [
+            'orders' => $order, 
+            'request' => $request->all()
+        ]);
 
-        $clients = Client::simplePaginate(10);
-        return view('app.client.client', ['clients' => $clients, 'request' => $request->all()]);
     }
 
     /**
@@ -26,7 +30,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('app.client.create');
+        $clients = Client::all();
+        return view('app.order.create', ['clients' => $clients]);
     }
 
     /**
@@ -38,23 +43,20 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required | min:3',
+            'client_id' => 'exists:clients,id'
         ];
 
-
         $feedback = [
-            'name.required' => 'O campo deve ser preenchido',
-            'name.min' => 'Nome deve ter pelo menos 3 letras'
+            'client_id.exists' => 'Cliente não existe!'
         ];
 
         $request->validate($rules, $feedback);
 
+        $order = new Order();
+        $order->client_id = $request->get('client_id');
+        $order->save();
 
-        $client = new Client();
-        $client->name = $request->get('name');
-        $client->save();
-
-        return redirect()->route('cliente.index');
+        return redirect()->route('pedido.index');
     }
 
     /**

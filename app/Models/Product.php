@@ -36,4 +36,15 @@ class Product extends Model
         return $this->belongsTo('App\Models\Provider');
 
     }
+
+    /*There is a Many to Many relationship between Order Model 
+    and Product Model, generating the Model ProductOrder in 
+    which the Order can belong to one or many products and one or many orders. */
+    public function orders(){
+        /* Instantiating the path of the Order model that relates 
+        to the Product Model and instantiating the product_orders 
+        table which is the auxiliary table of the N to N relation: */
+        return $this->belongsToMany('App\Models\Order', 'product_orders');
+    }
+    
 }
