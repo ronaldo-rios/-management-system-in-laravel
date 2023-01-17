@@ -47,6 +47,8 @@ Route::middleware('authentication')->prefix('/app')->group(function(){
     Route::resource('pedido', OrderController::class);
     Route::get('pedido-produto/create/{order}', [ProductOrderController::class, 'create'])->name('pedido-produto.create');
     Route::post('pedido-produto/store/{order}', [ProductOrderController::class, 'store'])->name('pedido-produto.store');
+    // Route::delete('pedido-produto/destroy/{order}/{product}', [ProductOrderController::class, 'destroy'])->name('pedido-produto.destroy');
+    Route::delete('pedido-produto/destroy/{product_order}/{order_id}', [ProductOrderController::class, 'destroy'])->name('pedido-produto.destroy');
 
 });
 

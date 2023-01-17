@@ -45,19 +45,22 @@ class ProductOrderController extends Controller
     public function store(Request $request, Order $order)
     {
         $rules = [
-            'product_id' => 'exists:products,id'
+            'product_id' => 'exists:products,id',
+            'quantity' => 'required|min:0|max:1000'
         ];
         $feedback = [
-            'product_id.exists' => 'Produto informado não existe!'
+            'product_id.exists' => 'Produto informado não existe!',
+            'quantity.required' => 'O campo é obrigatório',
+            'quantity.min' => 'Campo não pode ser menor que 0',
+            'quantity.max' => 'Valor máximo possível é 1000'
         ];
 
         $request->validate($rules, $feedback);
 
-        $product_order = new ProductOrder();
-        $product_order->order_id = $order->id;
-        $product_order->product_id = $request->get('product_id');
-        $product_order->save();
-
+        $order->products()->attach(
+            $request->get('product_id'), 
+            ['quantity' => $request->get('quantity')]
+        );
         return redirect()->route('pedido-produto.create', ['order' => $order->id]);
 
     }
@@ -102,8 +105,10 @@ class ProductOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ProductOrder $product_order, $order)
     {
-        //
+        $product_order->delete();
+
+        return redirect()->route('pedido-produto.create', ['order' => $order->id]);
     }
 }

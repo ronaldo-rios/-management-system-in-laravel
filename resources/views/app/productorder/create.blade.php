@@ -30,6 +30,7 @@
                             <th>ID Produto</th>
                             <th>Nome do Produto</th>
                             <th>Última atualização:</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -38,6 +39,20 @@
                             <td>{{$p->id}}</td>
                             <td>{{$p->name}}</td>
                             <td>{{$p->pivot->updated_at->format('d/m/Y H:i:s')}}</td>
+                            <form id="form_{{$p->pivot->id}}" method="POST" 
+                                action="{{route('pedido-produto.destroy', [
+                                    'product_order' => $p->pivot->id, 
+                                    'order_id' => $order->id
+                                    ])}}">
+                                @csrf
+                                @method('DELETE')
+                            <td style="background-color: rgb(214, 3, 56); border:1px solid black; border-radius:5px">
+                                <a href="#" onclick="document.getElementById('form_{{$p->pivot->id}}').submit()"
+                                    style="text-decoration:none; color: #fff">
+                                Excluir
+                                </a>
+                            </td>
+                            </form>
                         </tr>
                         @endforeach
                     </tbody>

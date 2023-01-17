@@ -34,12 +34,12 @@
                             <td>{{ $client->name }}</td>
                             
                             <td style="background-color: rgb(4, 135, 223); border:1px solid black; border-radius:5px">
-                                <a style="text-decoration:none; color: #fff" href="{{route('cliente.show', ['client' => $client])}}">
+                                <a style="text-decoration:none; color: #fff" href="">
                                 Detalhes
                                 </a>
                             </td>
                             <td style="background-color: rgb(214, 3, 56); border:1px solid black; border-radius:5px">
-                                <form id="form_{{$client->id}}" method="POST" action="{{route('cliente.destroy', ['client' => $client])}}">
+                                <form id="form_{{$client->id}}" method="POST" action="">
                                     @method('DELETE')
                                     @csrf
                                     <a style="text-decoration:none; color: #fff" href="#" 
@@ -49,7 +49,7 @@
                                 </form>
                             </td>
                             <td style="background-color: rgb(253, 145, 4); border:1px solid black; border-radius:5px">
-                                <a style="text-decoration:none; color: #fff" href="{{route('cliente.edit', ['client' => $client])}}">
+                                <a style="text-decoration:none; color: #fff" href="">
                                     Editar
                                 </a>
                             </td>
