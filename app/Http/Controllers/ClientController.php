@@ -65,7 +65,8 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+        $client = Client::find($id);
+        return view('app.client.show', ['client' => $client]);
     }
 
     /**
@@ -76,8 +77,13 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $clients = Client::find($id);
+        
+        return view('app.client.client', [
+            'clients' => $clients
+        ]);
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -88,8 +94,33 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'name'=> 'required | min:3',
+        ];
+        $feedback = [
+            'name.required'=> 'O campo deve ser preenchido',
+            'name.min' => 'Nome deve ter pelo menos 3 letras'
+        ];
+
+        $request->validate($rules, $feedback);
+
+        $client = Client::findOrFail($id);
+        $client->update($request->all());
+    
+        if($client->save()){
+            $msg = 'Atualizado com sucesso!';
+        }
+        else {
+            $msg = 'Erro na atualização do registro!';
+        }
+    
+        return redirect()->route('cliente.index', 
+        [
+        'client' => $client, 
+        'msg' => $msg
+    ]);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -99,6 +130,8 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Client::find($id)->delete();  
+        return redirect()->route('cliente.index');
     }
 }
+

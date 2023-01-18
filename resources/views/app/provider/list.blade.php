@@ -54,8 +54,9 @@
                         <tr>
                             <td colspan="6">
                                 <p>Lista de Produtos</p>
-                                <table border="1" style="margin:20px">
-                                    <thead>
+                                <table border="1" 
+                                style="margin-top: 5px; margin-bottom:5px; margin-left:auto; margin-right:auto; border-radius:5px " >
+                                    <thead style="background-color:rgb(2, 110, 110) ;color:#fff">
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>

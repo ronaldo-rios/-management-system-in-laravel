@@ -17,7 +17,7 @@ class Order extends Model
         /* Instantiating the path of the Product model that relates 
         to the Order Model and instantiating the product_orders 
         table which is the auxiliary table of the N to N relation: */
-        return $this->belongsToMany('App\Models\Product', 'product_orders')->withPivot('id', 'created_at', 'updated_at');
+        return $this->belongsToMany('App\Models\Product', 'product_orders')->withPivot('quantity', 'id', 'created_at', 'updated_at');
         
     }
 }

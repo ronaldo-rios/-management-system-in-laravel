@@ -26,7 +26,7 @@
                     <thead>
                         <tr>
                             <th>ID Pedido</th>
-                            <th>Cliente</th>
+                            <th>ID Cliente</th>
                             
                         </tr>
                     </thead>
@@ -35,7 +35,12 @@
                         <tr>
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->client_id }}</td>
-                            <td><a href="{{ route('pedido-produto.create', ['order' => $order->id]) }}">Adicionar Produtos</a></td>
+                            <td style="background-color: rgb(127, 35, 180); border:1px solid black; border-radius:5px">
+                                <a style="text-decoration:none; color: #fff"
+                                href="{{ route('pedido-produto.create', ['order' => $order->id]) }}">
+                                Adicionar Produtos
+                            </a>
+                            </td>
                             
                             <td style="background-color: rgb(4, 135, 223); border:1px solid black; border-radius:5px">
                                 <a style="text-decoration:none; color: #fff" href="">
@@ -43,7 +48,7 @@
                                 </a>
                             </td>
                             <td style="background-color: rgb(214, 3, 56); border:1px solid black; border-radius:5px">
-                                <form id="form_{{$order->id}}" method="POST" action="">
+                                <form id="form_{{$order->id}}" method="POST" action="{{route('pedido.destroy', [$order->id])}}">
                                     @method('DELETE')
                                     @csrf
                                     <a style="text-decoration:none; color: #fff" href="#" 
@@ -53,7 +58,7 @@
                                 </form>
                             </td>
                             <td style="background-color: rgb(253, 145, 4); border:1px solid black; border-radius:5px">
-                                <a style="text-decoration:none; color: #fff" href="">
+                                <a style="text-decoration:none; color: #fff" href="{{ route('pedido-produto.create', ['order' => $order->id]) }}">
                                     Editar
                                 </a>
                             </td>

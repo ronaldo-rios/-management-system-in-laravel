@@ -1,18 +1,18 @@
 @extends('layout.basicApp')
 
-@section('title', 'Produto')
+@section('title', 'Cliente')
 
 @section('content')
 
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Visualizar Produto</p>
+            <p>Visualizar Cliente</p>
         </div>
         <div class="menu">
             <ul>
                 <li>
-                    <a href="{{route('product.index')}}">Voltar</a>
-                    <a href="">Consulta</a>
+                    <a href="{{route('cliente.index')}}">Voltar</a>
+                    
                 </li>
             </ul>
         </div>
@@ -22,44 +22,40 @@
                 <table border="1" style="width:70%; margin-left:auto; margin-right:auto" >
                     <tr>
                         <td>ID</td>
-                        <td>{{$product->id}}</td>
+                        <td>{{$client->id}}</td>
                     </tr>
                     <tr>
                         <td>Nome</td>
-                        <td>{{$product->name}}</td>
+                        <td>{{$client->name}}</td>
                     </tr>
                     <tr>
-                        <td>Descrição</td>
-                        <td>{{$product->description}}</td>
+                        <td>Cadastrado em:</td>
+                        <td>{{$client->created_at->format('d/m/Y H:i:s')}}</td>
                     </tr>
                     <tr>
-                        <td>Peso</td>
-                        <td>{{$product->weight}} kg</td>
+                        <td>Atualizado em:</td>
+                        <td>{{$client->updated_at->format('d/m/Y H:i:s')}}</td>
                     </tr>
-                    <tr>
-                        <td>Unidade de Medida</td>
-                        <td>{{$product->unit_id}}</td>
-                    </tr>
+                    
                 </table>
                 <div style="margin: 3em">
                 <table border="0" style="width:20%; margin-left:auto; margin-right:auto">
                     <tr>
                     <td style="background-color: rgb(214, 3, 56); border:1px solid black; border-radius:5px">
-                        <form id="form_{{$product->id}}" method="POST" action="{{route('product.destroy', ['product' => $product->id])}}">
+                        <form id="form_{{$client->id}}" method="POST" action="{{route('cliente.destroy',  $client->id)}}">
                             @method('DELETE')
                             @csrf
                             <a style="text-decoration:none; color: #fff" href="#" 
-                            onclick="document.getElementById('form_{{$product->id}}').submit()">
+                            onclick="document.getElementById('form_{{$client->id}}').submit()">
                             Excluir
                             </a>
                         </form>
                     </td>
                     <td style="background-color: rgb(253, 145, 4); border:1px solid black; border-radius:5px">
-                        <a style="text-decoration:none; color: #fff" href="{{route('product.edit', ['product' => $product->id])}}">
+                        <a style="text-decoration:none; color: #fff" href="{{route('cliente.edit',  $client->id)}}">
                             Editar
                         </a>
                     </td>
-                
                 </tr>
             </table>
                 

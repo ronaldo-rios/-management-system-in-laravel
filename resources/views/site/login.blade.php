@@ -40,7 +40,9 @@
         <h2>Contato</h2>
         <span>(11) 3333-4444</span>
         <br>
-        <span>supergestao@dominio.com.br</span>
+        <span>gestaofacil@gestaofacil.com.br</span>
+        <br><br><br>
+        <span>Desenvolvido por Ronaldo Rios Espíndola</span>
     </div>
     <div class="localizacao">
         <h2>Localização</h2>

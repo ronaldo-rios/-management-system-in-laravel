@@ -67,7 +67,13 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $products = Product::find($id);
+        // products is method of relationship maked in Order Model using eager loading:
+        $order->products; 
+        return view('app.productorder.show', [
+            'order' => $order,
+            'products' => $products
+        ]);
     }
 
     /**
@@ -101,6 +107,9 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        $order->delete();
+
+        return redirect()->route('pedido.index', ['order' => $order->id]);
     }
 }

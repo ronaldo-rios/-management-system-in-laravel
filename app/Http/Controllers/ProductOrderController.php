@@ -105,10 +105,10 @@ class ProductOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductOrder $product_order, $order)
+    public function destroy(ProductOrder $product_order, $order_id)
     {
         $product_order->delete();
 
-        return redirect()->route('pedido-produto.create', ['order' => $order->id]);
+        return redirect()->route('pedido-produto.create', ['order' => $order_id]);
     }
 }
