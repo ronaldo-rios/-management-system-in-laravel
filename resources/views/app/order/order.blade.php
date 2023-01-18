@@ -41,9 +41,9 @@
                                 Adicionar Produtos
                             </a>
                             </td>
-                            
+                            {{-- A rota usada para ver detalhes é a mesma de pedido-produto.create, porém com algumas alterações na view: --}}
                             <td style="background-color: rgb(4, 135, 223); border:1px solid black; border-radius:5px">
-                                <a style="text-decoration:none; color: #fff" href="">
+                                <a style="text-decoration:none; color: #fff" href="{{route('pedido-produto.create', [$order->id])}}">
                                 Detalhes
                                 </a>
                             </td>

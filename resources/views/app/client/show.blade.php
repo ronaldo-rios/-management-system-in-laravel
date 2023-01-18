@@ -52,7 +52,7 @@
                         </form>
                     </td>
                     <td style="background-color: rgb(253, 145, 4); border:1px solid black; border-radius:5px">
-                        <a style="text-decoration:none; color: #fff" href="{{route('cliente.edit',  $client->id)}}">
+                        <a style="text-decoration:none; color: #fff" href="{{route('cliente.edit', $client)}}">
                             Editar
                         </a>
                     </td>

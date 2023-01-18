@@ -19,7 +19,7 @@
         <div class="informacao-pagina">
             {{$msg ?? ''}}
             <div style="width:40%; margin-left:auto; margin-right:auto">
-                <form method="POST" action="{{route('cliente.update', $client->id])}}">
+                <form method="POST" action="{{route('cliente.update', $client->id)}}">
 
 
                     <input type="hidden" name="id" value="{{$client->id ?? ''}}">
@@ -28,7 +28,7 @@
                     <input type="text" name="name" value="{{$client->name ?? old('name')}}" placeholder="Nome do Cliente">
                     {{$errors->has('name') ? $errors->first('name') : ''}}                    
 
-                    <button type="submit">Cadastrar</button>
+                    <button type="submit">Editar</button>
                 </form>
             </div>
         </div>

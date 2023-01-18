@@ -71,9 +71,14 @@ class ProductOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        //
+        $products = Product::all();
+        $order->products; 
+        return view('app.productorder.show', [
+            'order' => $order,
+            'products' => $products
+        ]);
     }
 
     /**

@@ -27,6 +27,7 @@
                 <table border="1" width="90%" style="margin-left:auto; margin-right:auto">
                     <thead>
                         <tr>
+                            <th>Quantidade</th>
                             <th>ID Produto</th>
                             <th>Nome do Produto</th>
                             <th>Última atualização:</th>
@@ -36,6 +37,7 @@
                     <tbody>
                         @foreach($order->products as $p)
                         <tr>
+                            <td>{{$p->pivot->quantity}}</td>
                             <td>{{$p->id}}</td>
                             <td>{{$p->name}}</td>
                             <td>{{$p->pivot->updated_at->format('d/m/Y H:i:s')}}</td>
