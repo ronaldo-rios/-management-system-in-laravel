@@ -16,7 +16,7 @@
                 </li>
             </ul>
         </div>
-        <div class="informacao-pagina">
+        <div class="informacao-pagina" style="color:red;">
             {{$msg ?? ''}}
             <div style="width:40%; margin-left:auto; margin-right:auto">
                 <form method="POST" action="{{route('app.providers.add')}}">

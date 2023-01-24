@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="conteudo-pagina">
+    <div class="conteudo-pagina" style="color:red;">
         <div class="titulo-pagina-2">
             <p>Adicionar Detalhes do Produto</p>
         </div>

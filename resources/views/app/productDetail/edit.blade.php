@@ -15,7 +15,7 @@
                 </li>
             </ul>
         </div>
-        <div class="informacao-pagina">
+        <div class="informacao-pagina" style="color:red;">
 
             <h4>Produto</h4>
             <div>Nome: {{ $product_detail->product->name }}</div><br/>

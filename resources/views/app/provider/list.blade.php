@@ -18,7 +18,7 @@
             </ul>
         </div>
         
-        <div class="informacao-pagina">
+        <div class="informacao-pagina" >
             
             <div style="width:90%; margin-left:auto; margin-right:auto">
                 

@@ -13,7 +13,7 @@
         <h1>Login</h1>
     </div>
 
-    <div class="informacao-pagina">
+    <div class="informacao-pagina" style="color:red; font-weight:bold;">
         <div style="width:30%; margin-left:auto; margin-right:auto">
         <form action="{{route('site.login')}}" method="POST">
             @csrf

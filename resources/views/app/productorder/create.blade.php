@@ -16,7 +16,7 @@
                 </li>
             </ul>
         </div>
-        <div class="informacao-pagina">
+        <div class="informacao-pagina" >
             
             <h4>Detalhes do Pedido</h4>
             <p>ID do Pedido: {{$order->id}}</p>
@@ -34,7 +34,7 @@
                             
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         @foreach($order->products as $p)
                         <tr>
                             <td>{{$p->pivot->quantity}}</td>

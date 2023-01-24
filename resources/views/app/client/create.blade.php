@@ -12,11 +12,10 @@
             <ul>
                 <li>
                     <a href="{{route('cliente.index')}}">Voltar</a>
-                    <a href="">Consulta</a>
                 </li>
             </ul>
         </div>
-        <div class="informacao-pagina">
+        <div class="informacao-pagina" style="color:red;">
             {{$msg ?? ''}}
             <div style="width:40%; margin-left:auto; margin-right:auto">
                 
