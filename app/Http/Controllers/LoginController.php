@@ -4,66 +4,63 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
+
 
         $erro = '';
-        if($request->get('erro') == 1) {
+        if ($request->get('erro') == 1) {
             $erro = 'Usuário ou senha não existem!';
         }
 
-        if($request->get('erro') == 2) {
+        if ($request->get('erro') == 2) {
             $erro = 'Necessário login para acessar!';
         }
 
         return view('site.login', ['erro' => $erro]);
-
     }
 
 
-    public function signIn(Request $request) {
-        
-        $validationRules = 
-        [
-            'user' => 'email',
+
+    public function signIn(Request $request)
+    {
+
+            
+        $request->validate([
+            'email' => 'required|email',
             'password' => 'required'
-        ];
-
-        //Feedback validation:
-        $feedback = 
+        ],
         [
-            'user.email' => 'O campo é obrigatório',
+            'email.email' => 'Email é obrigatório',
             'password.required' => 'O campo é obrigatório'
-        ];
+        ]
+    
+    );
 
-        $request->validate($validationRules, $feedback);
-
-        $email = $request->get('user');
-        $password = $request->get('password');
-
-        //Initializing instance User Model:
-        $user = new User();
-        $userExists = $user->where('email', $email)
-            ->where('password', $password)
-            ->get()
-            ->first();
-       
-        if(isset($userExists->name)){
-            session_start();
-            $_SESSION['name'] = $userExists->name;
-            $_SESSION['email'] = $userExists->email;
-            return redirect()->route('cliente.index');
-        } else {
+        $auth = Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+        
+        if(!$auth){
             return redirect()->route('site.login', ['erro' => 1]);
         }
-    }
+        
+        return redirect()->route('cliente.index');
 
-    
-    public function logOut() {
-        session_destroy();
-        return redirect()->route('site.login');
     }
+        
 
+
+    public function logOut()
+    {
+
+        auth()->logout();
+        return back();
+    }
 }

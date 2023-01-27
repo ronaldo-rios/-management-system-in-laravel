@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\User;
 
 class ClientController extends Controller
 {
@@ -14,7 +15,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-
+        
         $clients = Client::simplePaginate(10);
         return view('app.client.client', ['clients' => $clients, 'request' => $request->all()]);
     }

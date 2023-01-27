@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(ReasonContactSeeder::class);
+        $this->call(UserSeeder::class);
+
     }
 }

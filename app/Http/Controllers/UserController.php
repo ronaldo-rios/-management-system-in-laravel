@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Access\Response;
 
 class UserController extends Controller
 {
@@ -13,7 +16,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+
+        Gate::authorize('isAdmin');
+        $users = User::all();
+        return view('app.user.user', ['users' => $users]); 
+        
     }
 
     /**

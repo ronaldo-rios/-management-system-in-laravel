@@ -12,6 +12,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductOrderController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,8 @@ Route::post('/contato', [ContactController::class, 'saveContact'])->name('site.c
 Route::get('/login/{erro?}', [LoginController::class, 'index'])->name('site.login');
 Route::post('/login', [LoginController::class, 'signIn'])->name('site.login');
 
-Route::middleware('authentication')->prefix('/app')->group(function(){
+Route::middleware('auth')->prefix('/app')->group(function(){
+    Route::resource('usuario', UserController::class)->middleware('is_admin');
     Route::get('/home', [HomeController::class, 'homeIndex'])->name('app.home');
     Route::get('/logout', [LoginController::class, 'logOut'])->name('app.logout');
     Route::get('/fornecedor', [ProviderController::class, 'index'])->name('app.providers');
@@ -47,9 +49,8 @@ Route::middleware('authentication')->prefix('/app')->group(function(){
     Route::resource('pedido', OrderController::class);
     Route::get('pedido-produto/create/{order}', [ProductOrderController::class, 'create'])->name('pedido-produto.create');
     Route::post('pedido-produto/store/{order}', [ProductOrderController::class, 'store'])->name('pedido-produto.store');
-    // Route::delete('pedido-produto/destroy/{order}/{product}', [ProductOrderController::class, 'destroy'])->name('pedido-produto.destroy');
     Route::delete('pedido-produto/destroy/{product_order}/{order_id}', [ProductOrderController::class, 'destroy'])->name('pedido-produto.destroy');
-    Route::resource('usuario', UserController::class);
+    
 
 });
 
