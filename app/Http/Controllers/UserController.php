@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Auth\Access\Response;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -19,8 +19,7 @@ class UserController extends Controller
 
         Gate::authorize('isAdmin');
         $users = User::all();
-        return view('app.user.user', ['users' => $users]); 
-        
+        return view('app.user.user', ['users' => $users]);
     }
 
     /**
@@ -30,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        Gate::authorize('isAdmin');
+        return view('app.user.create');
     }
 
     /**
@@ -41,7 +41,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Gate::authorize('isAdmin');
+        $rules = [
+            'name' => 'required | min:3',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ];
+
+
+        $feedback = [
+            'name.required' => 'O campo deve ser preenchido',
+            'name.min' => 'Nome deve ter pelo menos 3 letras',
+            'email.required' => 'O campo email é obrigatório',
+            'email.email' => 'O campo precisa ser um e-mail válido (ex: @outlook.com, @gmail.com',
+            'password.required' => 'Senha é obrigatória',
+            'password.min' => 'Senha precisa ter pelo menos 6 caracteres'
+        ];
+
+        $request->validate($rules, $feedback);
+
+
+        $user = new User();
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->password = bcrypt($request->get('password'));
+        $user->is_admin = $request('is_admin');
+        $user->save();
+
+        return redirect()->route('usuario.index');
     }
 
     /**
@@ -63,7 +90,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        Gate::authorize('isAdmin');
+        $user = User::find($id);
+        $level = User::select('is_admin')->where('id', $id)->first();
+        $is_admin = $level->is_admin;
+        return view('app.user.edit', ['user' => $user, 'is_admin' => $is_admin]);
     }
 
     /**
@@ -75,7 +106,45 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Gate::authorize('isAdmin');
+        $rules = [
+            'name' => 'required | min:3',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'is_admin' => ['required', Rule::in(['0', '1'])]
+        ];
+
+
+        $feedback = [
+            'name.required' => 'O campo deve ser preenchido',
+            'name.min' => 'Nome deve ter pelo menos 3 letras',
+            'email.required' => 'O campo email é obrigatório',
+            'email.email' => 'O campo precisa ser um e-mail válido (ex: @outlook.com, @gmail.com',
+            'password.required' => 'Senha é obrigatória',
+            'password.min' => 'Senha precisa ter pelo menos 6 caracteres'
+        ];
+
+        $request->validate($rules, $feedback);
+
+        $user = User::findOrFail($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password')); 
+        $user->is_admin = $request->input('is_admin');
+
+        if ($user->save()) {
+            $msg = 'Atualizado com sucesso!';
+        } else {
+            $msg = 'Erro na atualização do registro!';
+        }
+
+        return redirect()->route(
+            'usuario.index',
+            [
+                'user' => $user,
+                'msg' => $msg
+            ]
+        );
     }
 
     /**
@@ -86,6 +155,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Gate::authorize('isAdmin');
+        User::find($id)->delete();
+        return redirect()->route('usuario.index');
     }
 }

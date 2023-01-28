@@ -12,7 +12,7 @@
         <div class="menu">
             <ul>
                 <li>
-                    <a href="">Novo</a>
+                    <a href="{{route('usuario.create')}}">Novo</a>
                     
                 </li>
             </ul>
@@ -26,7 +26,7 @@
                     <thead>
                         <tr>
                             <th>ID do Usuário</th>
-                            <th>Tipo Acesso</th>
+                            <th>Nível Acesso</th>
                             <th>Nome</th>
                             <th>E-mail</th>
                         </tr>
@@ -39,13 +39,8 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             
-                            <td style="background-color: rgb(4, 135, 223); border:1px solid black; border-radius:5px">
-                                <a style="text-decoration:none; color: #fff" href="">
-                                Detalhes
-                                </a>
-                            </td>
                             <td style="background-color: rgb(214, 3, 56); border:1px solid black; border-radius:5px">
-                                <form id="form_{{$user->id}}" method="POST" action="">
+                                <form id="form_{{$user->id}}" method="POST" action="{{ route('usuario.destroy', $user->id) }}">
                                     @method('DELETE')
                                     @csrf
                                     <a style="text-decoration:none; color: #fff" href="#" 
@@ -55,7 +50,7 @@
                                 </form>
                             </td>
                             <td style="background-color: rgb(253, 145, 4); border:1px solid black; border-radius:5px">
-                                <a style="text-decoration:none; color: #fff" href="">
+                                <a style="text-decoration:none; color: #fff" href="{{ route('usuario.edit', $user) }}">
                                     Editar
                                 </a>
                             </td>

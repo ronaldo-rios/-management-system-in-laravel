@@ -11,7 +11,7 @@
         <div class="menu">
             <ul>
                 <li>
-                    <a href="">Voltar</a>
+                    <a href="{{route('cliente.index')}}">Voltar</a>
                 </li>
             </ul>
         </div>

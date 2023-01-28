@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UnitOfMeasurement;
 use App\Models\ProductDetail;
+use Illuminate\Support\Facades\Gate;
 
 class ProductDetailController extends Controller
 {
@@ -15,7 +16,7 @@ class ProductDetailController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -25,7 +26,7 @@ class ProductDetailController extends Controller
      */
     public function create()
     {
-
+        Gate::authorize('isAdmin');
         $unities = UnitOfMeasurement::all();
         return view('app.productDetail.create', ['unities' => $unities]);
 
@@ -39,6 +40,7 @@ class ProductDetailController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('isAdmin');
         ProductDetail::create($request->all());
     }
 
@@ -61,7 +63,7 @@ class ProductDetailController extends Controller
      */
     public function edit(ProductDetail $product_detail)
     {
-
+        Gate::authorize('isAdmin');
         $unities = UnitOfMeasurement::all();
         return view('app.productDetail.edit', [
             'product_detail' => $product_detail, 
@@ -79,6 +81,7 @@ class ProductDetailController extends Controller
      */
     public function update(Request $request, ProductDetail $product_detail)
     {
+        Gate::authorize('isAdmin');
         $product_detail->update($request->all());
     }
 
