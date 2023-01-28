@@ -9,6 +9,14 @@
 
 ## Sobre o Projeto Realizado em Laravel:
 
+O sistema de Gerenciamento foi desenvolvido em Laravel e com Banco de Dados MySQL.
+O sistema permite a criação, edição e exclusão de produtos e seus detalhes, além do cadastro de clientes e outras funcionalidades.
+Além disso, o sistema permite um gerenciamento de níveis de acesso, na qual alguns privilégios como criação e gerenciamento de usuários, apenas usuários Admin podem ter acesso.
+Essa validação é feita de três formas: através de um Gate que é instanciado em todo o UserController e também através do @can() no Blade.
+Além disso, para reforçar ainda mais o sistema, há o gerenciamento de níveis de acesso através de Middlewares, que nem deixam chegar até a rota.
+O sistema ainda conta com encriptação de senhas e outras funcionalidades adicionais para melhor produtividade.
+
+![code](https://github.com/ronaldo-rios/management-system-in-laravel/blob/main/code.png)
 ![principal](https://github.com/ronaldo-rios/management-system-in-laravel/blob/main/principal.png)
 ![login](https://github.com/ronaldo-rios/management-system-in-laravel/blob/main/login.png)
 ![clients](https://github.com/ronaldo-rios/management-system-in-laravel/blob/main/clients.png)
